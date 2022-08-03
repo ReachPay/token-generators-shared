@@ -10,3 +10,4 @@ prost = "*"
 prost-types = "*"
 hex = "*"
 encryption = { git = "https://github.com/ReachPay/encryption.git", branch = "0.1.1" }
+rust-extensions = { branch = "0.1.1", git = "https://github.com/MyJetTools/rust-extensions.git" }
