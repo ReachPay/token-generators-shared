@@ -28,7 +28,7 @@ impl AutoLoginToken {
             return None;
         }
 
-        let bytes = std::panic::catch_unwind(|| key.encrypt(encrypted.unwrap().as_slice()));
+        let bytes = key.decrypt(encrypted.unwrap().as_slice());
         if bytes.is_err() {
             return None;
         }
@@ -45,5 +45,21 @@ impl AutoLoginToken {
     pub fn is_expired(&self, now: DateTimeAsMicroseconds) -> bool {
         let expires = DateTimeAsMicroseconds::new(self.expires);
         expires.unix_microseconds < now.unix_microseconds
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use encryption::aes::AesKey;
+
+    use crate::AutoLoginToken;
+
+    #[test]
+    fn test_issue_prase() {
+        let key = AesKey::new(b"123456789012345678901234567890123456789012345678");
+
+        let result = AutoLoginToken::parse("565df043cc118ebde04d2bbc07588ee215b080cd47beed6d488fcc4dbf6421045307abf1863773844989f708c28b38d9", &key);
+
+        assert!(result.is_some());
     }
 }
