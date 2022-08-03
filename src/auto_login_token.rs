@@ -28,9 +28,12 @@ impl AutoLoginToken {
             return None;
         }
 
-        let bytes = key.encrypt(encrypted.unwrap().as_slice());
+        let bytes = std::panic::catch_unwind(|| key.encrypt(encrypted.unwrap().as_slice()));
+        if bytes.is_err() {
+            return None;
+        }
 
-        let result: Result<Self, _> = prost::Message::decode(bytes.as_slice());
+        let result: Result<Self, _> = prost::Message::decode(bytes.unwrap().as_slice());
 
         if result.is_err() {
             return None;
