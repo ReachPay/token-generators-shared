@@ -9,5 +9,5 @@ edition = "2021"
 prost = "*"
 prost-types = "*"
 hex = "*"
-encryption = { git = "https://github.com/ReachPay/encryption.git", branch = "0.1.1" }
-rust-extensions = { branch = "0.1.1", git = "https://github.com/MyJetTools/rust-extensions.git" }
+encryption = { git = "https://github.com/ReachPay/encryption.git", tag = "0.1.1" }
+rust-extensions = { tag = "0.1.2", git = "https://github.com/MyJetTools/rust-extensions.git" }
